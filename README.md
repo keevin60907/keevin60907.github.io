@@ -24,6 +24,10 @@ This is a static site published by GitHub Pages. GitHub serves `index.html` from
 
 Social links appear in both the introduction and footer. Update both entries in `index.html` so they stay consistent. External links that open a new tab should include `target="_blank" rel="noopener noreferrer"`.
 
+### Theme behavior
+
+The site follows the visitor's operating-system light or dark preference by default. The button in the top-right corner lets a visitor select a theme; that choice is stored only in their browser and does not require any server setup.
+
 ## Local preview
 
 Open `index.html` in a browser for a quick preview. Because this is a static site, no build step or package installation is required.

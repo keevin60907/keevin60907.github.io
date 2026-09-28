@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Professional website of Tsung-Shan (Kevin) Yang, Machine Learning Engineer and USC ECE Ph.D." />
     <title>Tsung-Shan (Kevin) Yang | Machine Learning Engineer</title>
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+      })();
+    </script>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
     <link
@@ -39,7 +45,7 @@
     </noscript>
   </head>
   <body class="bg-light" id="top">
-    <header class="d-print-none">
+    <header class="site-header d-print-none">
       <div class="container text-center text-lg-left">
         <div class="pt-4 clearfix">
           <h1 class="site-title mb-0">Tsung-Shan (Kevin) Yang</h1>
@@ -67,6 +73,10 @@
               </ul>
             </nav>
           </div>
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+            <span class="sr-only">Switch color theme</span>
+          </button>
         </div>
       </div>
     </header>
@@ -116,6 +126,7 @@
                       <div class="d-print-none">
                         <a
                           target="_blank"
+                          rel="noopener noreferrer"
                           class="btn btn-outline-light btn-lg shadow-sm mt-1 me-3"
                           href="document/CV-Kevin_Yang.pdf"
                           data-aos="fade-right"
