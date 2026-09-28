@@ -8,8 +8,44 @@
     <title>Tsung-Shan (Kevin) Yang | Machine Learning Engineer</title>
     <script>
       (() => {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+        const root = document.documentElement;
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+        try {
+          const savedTheme = localStorage.getItem('theme');
+          if (savedTheme === 'light' || savedTheme === 'dark') root.dataset.theme = savedTheme;
+        } catch (_) {
+          // Theme selection still works when browser storage is unavailable.
+        }
+
+        function activeTheme() {
+          return root.dataset.theme || (systemTheme.matches ? 'dark' : 'light');
+        }
+
+        function updateThemeToggle() {
+          const toggle = document.querySelector('#theme-toggle');
+          if (!toggle) return;
+
+          const isDark = activeTheme() === 'dark';
+          toggle.setAttribute('aria-pressed', String(isDark));
+          toggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+          toggle.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        window.toggleTheme = () => {
+          const nextTheme = activeTheme() === 'dark' ? 'light' : 'dark';
+          root.dataset.theme = nextTheme;
+
+          try {
+            localStorage.setItem('theme', nextTheme);
+          } catch (_) {
+            // The selected theme remains active for this visit.
+          }
+
+          updateThemeToggle();
+        };
+
+        window.updateThemeToggle = updateThemeToggle;
       })();
     </script>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
@@ -70,13 +106,15 @@
                 <li class="nav-item">
                   <a class="nav-link" href="#contact" title="Contact"><span class="menu-title">Contact</span></a>
                 </li>
+                <li class="nav-item nav-theme-item">
+                  <button class="theme-toggle" id="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Switch color theme" aria-pressed="false" title="Switch color theme">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                    <span class="sr-only">Switch color theme</span>
+                  </button>
+                </li>
               </ul>
             </nav>
           </div>
-          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme" aria-pressed="false">
-            <i class="fas fa-moon" aria-hidden="true"></i>
-            <span class="sr-only">Switch color theme</span>
-          </button>
         </div>
       </div>
     </header>
